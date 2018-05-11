@@ -12,7 +12,25 @@ class QuestionText extends StatefulWidget {
   State<StatefulWidget> createState() => new QuestionTextState();
 }
 
-class QuestionTextState extends State<QuestionText> {
+class QuestionTextState extends State<QuestionText> with SingleTickerProviderStateMixin {
+  // 0, 0.1, 0.2, ..., 1
+  Animation<double> _fontSizeAnimation;  
+
+  AnimationController _fontSizeAnimationController;
+
+  @override
+    void initState() {
+      super.initState();
+
+      _fontSizeAnimationController = 
+      new AnimationController(duration: new Duration(milliseconds: 500), vsync: this);
+
+      _fontSizeAnimation = new CurvedAnimation(parent: _fontSizeAnimationController, curve: Curves.bounceOut);
+      _fontSizeAnimation.addListener(() => this.setState(() => {}));
+      _fontSizeAnimationController.forward();
+    }
+
+
   @override
   Widget build(BuildContext context) {
     return new Material(
@@ -23,7 +41,8 @@ class QuestionTextState extends State<QuestionText> {
         child: new Center(
           child: new Text(
             "Statement " + widget._questionNumber.toString() + ": " + widget._quesiton,
-            style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+            // update font size with the animation
+            style: new TextStyle(fontSize: _fontSizeAnimation.value * 15),
           ),
         ),
       ),
