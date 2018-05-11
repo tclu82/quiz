@@ -4,6 +4,7 @@ import '../model/quiz.dart';
 import './answer_button.dart';
 import './question_text.dart';
 import './correct_wrong_overlay.dart';
+import './score_page.dart';
 
 class QuizPage extends StatefulWidget {
   @override
@@ -66,7 +67,14 @@ class QuizPageState extends State<QuizPage> {
           ],
         ),
         _overlayShouldVisible ? new CorrectWrongOverlay(_isCorrect, () {
-          
+          // Answer all questions
+          if (_quiz.length == _questionNumber) {
+            Navigator.of(context) // When route = null, stop push and remove route
+            .pushAndRemoveUntil(new MaterialPageRoute(builder: (BuildContext context) => new ScorePage(_quiz.score, _quiz.length)), 
+            (Route route) => route == null);
+            return;
+          }
+
           _currentQuestion = _quiz.nextQuestion;
         
           this.setState(() {
