@@ -22,7 +22,7 @@ class QuestionTextState extends State<QuestionText> {
         padding: new EdgeInsets.symmetric(vertical: 20.0),
         child: new Center(
           child: new Text(
-            "Happy birthday Bizarre!",
+            "Statement " + widget._questionNumber.toString() + ": " + widget._quesiton,
             style: new TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
           ),
         ),

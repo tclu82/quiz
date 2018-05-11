@@ -20,7 +20,7 @@ class QuizPageState extends State<QuizPage> {
           children: <Widget>[
             // Callback function style 1
             new AnswerButton(true, () => print("That's right!!")),
-            new QuestionText("Happy birthday Bizarre!", 1),
+            new QuestionText("Programming is fun?", 1),
             // Callback function style 2
             new AnswerButton(false, () { print("Booooooooo!!"); })
           ],
