@@ -3,6 +3,7 @@ import '../model/question.dart';
 import '../model/quiz.dart';
 import './answer_button.dart';
 import './question_text.dart';
+import './correct_wrong_overlay.dart';
 
 class QuizPage extends StatefulWidget {
   @override
@@ -15,6 +16,9 @@ class QuizPageState extends State<QuizPage> {
   @override
   Widget build(BuildContext context) {
     return new Stack(
+      
+      fit: StackFit.expand,
+      
       children: <Widget>[
         new Column(
           children: <Widget>[
@@ -24,7 +28,8 @@ class QuizPageState extends State<QuizPage> {
             // Callback function style 2
             new AnswerButton(false, () { print("Booooooooo!!"); })
           ],
-        )
+        ),
+        new CorrectWrongOverlay(true),
       ],
     );
   }
