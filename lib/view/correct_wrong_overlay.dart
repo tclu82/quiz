@@ -5,7 +5,9 @@ class CorrectWrongOverlay extends StatefulWidget {
 
   final bool _isCorrect;
 
-  CorrectWrongOverlay(this._isCorrect);
+  final VoidCallback _onTap;
+
+  CorrectWrongOverlay(this._isCorrect, this._onTap);
 
   @override
     State<StatefulWidget> createState() {
@@ -34,7 +36,7 @@ class CorrectWrongOverlayState extends State<CorrectWrongOverlay> with SingleTic
       return new Material(
         color: Colors.black54,
         child: new InkWell(
-          onTap: () => print("You tap the overlay"),
+          onTap: () => widget._onTap(),
           child: new Column(
             
             mainAxisAlignment: MainAxisAlignment.center,

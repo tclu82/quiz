@@ -13,23 +13,69 @@ class QuizPage extends StatefulWidget {
 }
 
 class QuizPageState extends State<QuizPage> {
+  Question _currentQuestion;
+
+  Quiz _quiz = new Quiz([
+    new Question("No rain in Seattle?", false),
+    new Question("Flutter is dope?", true),
+    new Question("Shool is boring?", false),
+    new Question("Learning is fun?", true),
+  ]);
+
+  String _questionText;
+
+  int _questionNumber;
+
+  bool _isCorrect;
+
+  bool _overlayShouldVisible;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _currentQuestion = _quiz.nextQuestion;
+    _questionText = _currentQuestion.question;
+    _questionNumber = _quiz.questionNumer;
+    _overlayShouldVisible = false;
+  }
+
+  void handleAnswer(bool answer) {
+    _isCorrect = answer == _currentQuestion.answer;
+    // Update score
+    _quiz.answer(_isCorrect);
+    this.setState((() {
+      _overlayShouldVisible = true;
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Stack(
-      
       fit: StackFit.expand,
-      
       children: <Widget>[
         new Column(
           children: <Widget>[
             // Callback function style 1
-            new AnswerButton(true, () => print("That's right!!")),
-            new QuestionText("Programming is fun?", 1),
+            new AnswerButton(true, () => handleAnswer(true)),
+            new QuestionText(_questionText, _questionNumber),
             // Callback function style 2
-            new AnswerButton(false, () { print("Booooooooo!!"); })
+            new AnswerButton(false, () {
+              handleAnswer(false);
+            })
           ],
         ),
-        new CorrectWrongOverlay(true),
+        _overlayShouldVisible ? new CorrectWrongOverlay(_isCorrect, () {
+          
+          _currentQuestion = _quiz.nextQuestion;
+        
+          this.setState(() {
+            _overlayShouldVisible = false;
+            _questionText = _currentQuestion.question;
+            _questionNumber = _quiz.questionNumer;
+          });
+
+        }): new Container(),
       ],
     );
   }
