@@ -17,10 +17,10 @@ class QuizPageState extends State<QuizPage> {
   Question _currentQuestion;
 
   Quiz _quiz = new Quiz([
+    new Question("Coding is fun?", true),
     new Question("No rain in Seattle?", false),
-    new Question("Flutter is dope?", true),
-    new Question("Shool is boring?", false),
-    new Question("Learning is fun?", true),
+    new Question("Is this app cool?", true),
+    new Question("Is the iPhone X worth a grand?", false),
   ]);
 
   String _questionText;
